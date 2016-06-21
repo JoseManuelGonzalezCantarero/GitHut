@@ -13,20 +13,23 @@ class GitHutController extends Controller
      */
     public function githutAction(Request $request)
     {
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('GET', 'https://api.github.com/users/JoseManuelGonzalezCantarero');
+        $data = json_decode($response->getBody()->getContents(), true);
         $templateData = [
-            'avatar_url'  => 'https://avatars.githubusercontent.com/u/6990881?v=3',
-            'name'        => 'Jose Manuel Gonzalez Cantarero',
-            'login'       => 'JoseManuelGonzalezCantarero',
+            'avatar_url'  => $data['avatar_url'],
+            'name'        => $data['name'],
+            'login'       => $data['login'],
             'details'     => [
-                'company'   => 'Code Review Videos',
-                'location'  => 'Preston, Lancs, UK',
-                'joined_on' => 'Joined on Fake Date For Now',
+                'company'   => $data['company'],
+                'location'  => $data['location'],
+                'joined_on' => 'Joined on ' . (new \DateTime($data['created_at']))->format('d m Y'),
             ],
-            'blog' => 'https://codereviewvideos.com/',
+            'blog' => $data['blog'],
             'social_data' => [
-                'followers'    => 0,
-                'following'    => 1,
-                'public_repos' => 7,
+                'followers'    => $data['followers'],
+                'following'    => $data['following'],
+                'public_repos' => $data['public_repos'],
             ],
             'repo_count' => 100,
             'most_stars' => 50,
