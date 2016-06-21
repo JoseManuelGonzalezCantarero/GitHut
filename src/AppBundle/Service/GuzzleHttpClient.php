@@ -7,17 +7,16 @@ class GuzzleHttpClient implements HttpClientInterface
 {
     private $client;
 
-    public function __construct()
+    public function __construct(\GuzzleHttp\Client $client)
     {
-        // don't do this
-        $this->client = new \GuzzleHttp\Client();
+        $this->client = $client;
     }
 
     public function get($url)
     {
         $response = $this->client->get($url);
 
-        return json_decode($response->getBody()->getContents(), true);
+        return json_decode($response->getBody(), true);
     }
 
     public function post($url, $data)

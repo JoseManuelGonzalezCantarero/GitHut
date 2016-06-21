@@ -6,6 +6,8 @@ parameters:
 services:
     guzzle_http_client:
         class: AppBundle\Service\GuzzleHttpClient
+        arguments:
+            - "@guzzle.client.8p_guzzle_client"
     github_api:
         class: AppBundle\Service\GitHubApi
         arguments:
