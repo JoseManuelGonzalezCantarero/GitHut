@@ -2,10 +2,10 @@
 
 {% block body %}
     <div class="col-sm-3">
-        {% include ':githut:profile.html.twig' %}
+        {{ render (controller('AppBundle:Githut:profile', { 'username': username })) }}
     </div>
 
     <div class="col-sm-9">
-        {% include ':githut:repos.html.twig' %}
+        {{ render (controller('AppBundle:Githut:repos', { 'username': username })) }}
     </div>
 {% endblock %}

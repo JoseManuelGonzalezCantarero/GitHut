@@ -19,7 +19,7 @@
 
             <ul class="list-group">
                 {% for repo in repos %}
-                    <li class="list-group-item">{% include ':githut:repo.html.twig' %}</li>
+                    <li class="list-group-item">{% include ':githut:repo.html.twig' with repo %}</li>
                 {% endfor %}
             </ul>
         </div>
