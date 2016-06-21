@@ -4,5 +4,9 @@ parameters:
 #    parameter_name: value
 
 services:
+    guzzle_http_client:
+        class: AppBundle\Service\GuzzleHttpClient
     github_api:
         class: AppBundle\Service\GitHubApi
+        arguments:
+            - "@guzzle_http_client"

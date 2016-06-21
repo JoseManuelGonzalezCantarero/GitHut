@@ -6,11 +6,20 @@ use GuzzleHttp\Client;
 
 class GitHubApi
 {
+    /**
+     * @var HttpClientInterface
+     */
+    private $httpClient;
+
+    public function __construct(HttpClientInterface $httpClientInterface)
+    {
+        $this->httpClient = $httpClientInterface;
+    }
+
     public function getProfile($username)
     {
-        $client = New Client();
-        $response = $client->request('GET', 'https://api.github.com/users/' . $username);
-        $data = json_decode($response->getBody()->getContents(), true);
+        $data = $this->httpClient->get('https://api.github.com/users/' . $username);
+
         return [
             'avatar_url'  => $data['avatar_url'],
             'name'        => $data['name'],
@@ -31,11 +40,7 @@ class GitHubApi
 
     public function getRepositories($username)
     {
-        $client = New Client();
-        /** @var $response \Psr\Http\Message\ResponseInterface */
-        $response = $client->request('GET', 'https://api.github.com/users/' . $username . '/repos');
-
-        $data = json_decode($response->getBody()->getContents(), true);
+        $data = $this->httpClient->get('https://api.github.com/users/' . $username . '/repos');
 
         return [
             'repo_count' => count($data),
