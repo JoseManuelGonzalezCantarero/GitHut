@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="col-sm-3">
+        {% include ':githut:profile.html.twig' %}
+    </div>
+
+    <div class="col-sm-9">
+        {% include ':githut:repos.html.twig' %}
+    </div>
+{% endblock %}
